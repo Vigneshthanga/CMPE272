@@ -1,0 +1,45 @@
+---
+- name: deleting an instance
+  gcp_compute_instance:
+    name: "{{ instance_name }}"
+    zone: "{{ zone }}"
+    project: "{{ lookup('env','GCP_PROJECT') }}"
+    state: absent
+
+- name: Revocating the address
+  gcp_compute_address:
+    name: "{{ instance_name }}"
+    region: "{{ region }}"
+    project: "{{ lookup('env','GCP_PROJECT') }}"
+    state: absent
+
+- name: deleting firewall
+  gcp_compute_firewall:
+    name: ansible-firewall
+    project: "{{ lookup('env','GCP_PROJECT') }}"
+    state: absent
+
+#registring here because some other VM instance might use this resource still
+- name: register the existing network
+  gcp_compute_network:
+    name: ansible-network
+    project: "{{ lookup('env','GCP_PROJECT') }}"
+  register: network
+
+# - debug:
+#     var: network
+
+- name: deleting subnetwork
+  gcp_compute_subnetwork:
+    name: ansible-subnet
+    region: "{{ region }}"
+    network: "{{ network }}"
+    ip_cidr_range: "{{ ip_cidr_range }}"
+    project: "{{ lookup('env','GCP_PROJECT') }}"
+    state: absent
+
+- name: deleting network
+  gcp_compute_network:
+    name: ansible-network
+    project: "{{ lookup('env','GCP_PROJECT') }}"
+    state: absent

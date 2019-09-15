@@ -1,0 +1,4 @@
+---
+- import_playbook: playbooks/10_webserver_infra.yml
+- import_playbook: playbooks/20_webserver_config.yml
+- import_playbook: playbooks/httpd_playbook.yml

@@ -1,0 +1,7 @@
+---
+zone: us-west1-b
+region: us-west1
+instance_name: web-3
+machine_type: n1-standard-1
+size_gb: 200
+ip_cidr_range: 10.0.0.0/24

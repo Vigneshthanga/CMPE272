@@ -1,0 +1,13 @@
+---
+plugin: gcp_compute
+zones:
+ - us-west1-b
+projects:
+  - mythical-geode-252120
+filters: []
+groups:
+  webservers: "'web-' in name"
+scopes:
+  - https://www.googleapis.com/auth/compute
+service_account_file: /Users/vigneshkumarthangarajan/Downloads/mythical-geode-252120-e5ac686a766d.json
+auth_kind: serviceaccount
